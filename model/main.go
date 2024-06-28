@@ -10,8 +10,15 @@ type OriginalCalendar struct {
 
 // 轉換後的行事曆資料結構
 type Calendar struct {
-	Date      string `json:"date"`
-	Week      string `json:"week"`
-	IsHoliday bool   `json:"isHoliday"`
-	Remark    string `json:"remark"`
+	Date         string `json:"date"`
+	DateFormat   string `json:"date_format"`
+	Year         string `json:"year"`
+	ROCYear      string `json:"roc_year"`
+	Month        string `json:"month"`
+	Day          string `json:"day"`
+	Week         string `json:"week"`
+	Week_Abbr    string `json:"week_abbr"`
+	Week_Chinese string `json:"week_chinese"`
+	IsHoliday    bool   `json:"isHoliday"`
+	Caption      string `json:"caption"`
 }
