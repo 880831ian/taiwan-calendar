@@ -1,14 +1,14 @@
-# Taiwan-Calendar
+# Taiwan-Calendar 臺灣行事曆
 
 ## 說明
 
-最近在做一個專案，會需要台灣的國定假日，可惜政府資料開放平台沒有提供 API，只能下載檔案 (CSV、XML、JSON)，也沒有我想要的格式，因此我將 JSON 資料格式透過 Go 寫了一隻簡單的 API，方便使用。
+最近在做一個專案，會需要台灣的國定假日，可惜政府資料開放平台沒有提供 API，只能下載檔案 (CSV、XML、JSON)，也沒有我想要的格式，因此我將政府資料開放平台提供的 JSON 資料格式透過 Go 寫了一隻簡單的 API，方便大家使用。
 
 <br>
 
 ## 資料來源
 
-本資料集取自於[政府資料開放平台](https://data.gov.tw/dataset/14718)之「中華民國政府行政機關辦公日曆表」，欄位內容包含日期、星期、是否放假、說明。
+本資料取自於[政府資料開放平台](https://data.gov.tw/dataset/14718)之「中華民國政府行政機關辦公日曆表」，欄位內容包含日期、星期、是否放假、說明。
 
 <br>
 
@@ -23,9 +23,9 @@
    - `GET` `/taiwan-calendar/{year}`：取得指定年份的行事曆資料。
    - `GET` `/taiwan-calendar/{year}/{month}`：取得指定年份+月份的行事曆資料。
    - `GET` `/taiwan-calendar/{year}/{month}/{day}`：取得指定年份+月份+日的行事曆資料。
-   - `GET` `/taiwan-calendar/{year}/?isHoliday={true/false}`：取得指定年份是否為假日。
-   - `GET` `/taiwan-calendar/{year}/{month}/?isHoliday={true/false}`：取得指定年份+月份是否為假日。
-   - `GET` `/taiwan-calendar/{year}/{month}/{day}/?isHoliday={true/false}`：取得指定年份+月份+日是否為假日。
+   - `GET` `/taiwan-calendar/{year}/?isHoliday={true/false}`：取得指定年份是否為假日的行事曆資料。
+   - `GET` `/taiwan-calendar/{year}/{month}/?isHoliday={true/false}`：取得指定年份+月份是否為假日的行事曆資料。
+   - `GET` `/taiwan-calendar/{year}/{month}/{day}/?isHoliday={true/false}`：取得指定年份+月份+日是否為假日的行事曆資料。
      其餘詳細說明請參考 [API 文件](https://documenter.getpostman.com/view/7653426/2sA3dsnZcb)。
 
 <br>
@@ -58,11 +58,13 @@
 
 **目前收納資料範圍為 2017 年至 2025 年，未來會持續更新。**
 
+(資料更新：2024/07/01 16:19)
+
 <br>
 
 ## 資料內容備註
 
-由於政府資料開放平台提供資料，有些無法下載 JOSN 格式，因此我先下載 CSV 格式，再轉換成 JSON 格式。
+由於政府資料開放平台提供資料，有些無法下載 JSON 格式，因此我先下載 CSV 格式，再轉換成 JSON 格式。
 
 以下為有問題的資料：
 
@@ -70,8 +72,6 @@
 - 2022 年：沒有 JSON 格式
 - 2020 年：沒有 JSON 格式，下載 CSV 會出現亂碼
 - 2019 年：沒有 JSON 格式，下載 CSV 會出現亂碼
-
-(下載日期：2024/07/01 16:19)
 
 <br>
 
