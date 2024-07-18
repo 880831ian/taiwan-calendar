@@ -11,7 +11,7 @@ import (
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
-	limiter := tollbooth.NewLimiter(2, nil) // 1 秒最多 2 次請求
+	limiter := tollbooth.NewLimiter(5, nil) // 1 秒最多 5 次請求
 	limiter.SetIPLookups([]string{"X-Forwarded-For", "X-Real-IP", "RemoteAddr"})
 	limiter.SetMessageContentType("application/json; charset=utf-8")
 	limiter.SetMessage(`{"http_code": "429", "message": "API 請求頻率過快，請稍後再試！", "status": "error"}`)
