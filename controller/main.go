@@ -41,6 +41,16 @@ func GetCalendar(c *gin.Context) {
 		return
 	}
 
+	// 檢查 month 是否在 1 到 12 之間
+	if month < 1 || month > 12 {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":    "error",
+			"http_code": "400",
+			"message":   "輸入格式錯誤，月份必須在 1 到 12 之間",
+		})
+		return
+	}
+
 	monthStr := fmt.Sprintf("%02d", month)
 	dayStr := fmt.Sprintf("%02d", day)
 	filename := "data/" + yearParam + ".json"

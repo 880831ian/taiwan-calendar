@@ -1,6 +1,7 @@
 package router
 
 import (
+	"net/http"
 	"taiwan-calendar/controller"
 
 	"github.com/didip/tollbooth"
@@ -21,6 +22,14 @@ func SetupRouter() *gin.Engine {
 	r.GET("/taiwan-calendar/:year/", tollbooth_gin.LimitHandler(limiter), controller.GetCalendar)
 	r.GET("/taiwan-calendar/:year/:month/", tollbooth_gin.LimitHandler(limiter), controller.GetCalendar)
 	r.GET("/taiwan-calendar/:year/:month/:day/", tollbooth_gin.LimitHandler(limiter), controller.GetCalendar)
+
+	r.NoRoute(func(c *gin.Context) {
+		c.JSON(http.StatusNotFound, gin.H{
+			"http_code": "404",
+			"message":   "查無資料",
+			"status":    "success",
+		})
+	})
 
 	return r
 }
