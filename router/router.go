@@ -41,7 +41,7 @@ func SetupRouter() *gin.Engine {
 		if _, exists := blockedIPs[clientIP]; exists {
 			c.JSON(http.StatusForbidden, gin.H{
 				"http_code": "403",
-				"message":   "系統偵測到使用量過大，已先將該 IP 進行封鎖，如還需使用，請聯絡開發人員 https://t.me/pinyichuchu",
+				"message":   "系統偵測到使用量過大，已先將該 IP 進行封鎖，如還需使用，請聯絡開發人員 https://t.me/pinyichuchu，若超過 3 天仍未聯絡，會直接從網路層永久封鎖該 IP",
 				"status":    "error",
 			})
 			c.Abort()
