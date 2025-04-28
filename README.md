@@ -16,7 +16,7 @@
 
 1. 由於是開源專案，歡迎大家直接使用，或是 Fork 進行修改。
 2. 本人免費提供 API，但是不保證服務穩定性，API：[https://api.pin-yi.me/taiwan-calendar](https://api.pin-yi.me/taiwan-calendar)。
-3. API 有每秒 5 次請求的限制，請大家不要把我的 API 打爆 QQ。
+3. API 有每秒 2 次請求的限制，請大家不要把我的 API 打爆 QQ。
 4. 使用說明：
    - `GET` `/taiwan-calendar/`：取得 API 文件連結。
    - `GET` `/taiwan-calendar/docs`：取得 API 文件連結。

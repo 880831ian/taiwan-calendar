@@ -1,7 +1,9 @@
 package router
 
 import (
+	"encoding/json"
 	"net/http"
+	"os"
 	"taiwan-calendar/controller"
 
 	"github.com/didip/tollbooth"
@@ -9,10 +11,46 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// loadBlockedIPs loads the blocked IPs from a JSON file
+func loadBlockedIPs(filepath string) map[string]struct{} {
+	file, err := os.Open(filepath)
+	if err != nil {
+		return make(map[string]struct{})
+	}
+	defer file.Close()
+
+	var blockedIPs []string
+	if err := json.NewDecoder(file).Decode(&blockedIPs); err != nil {
+		return make(map[string]struct{})
+	}
+
+	ipMap := make(map[string]struct{})
+	for _, ip := range blockedIPs {
+		ipMap[ip] = struct{}{}
+	}
+	return ipMap
+}
+
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
-	limiter := tollbooth.NewLimiter(5, nil) // 1 秒最多 5 次請求
+	blockedIPs := loadBlockedIPs("blocked_ips.json")
+
+	r.Use(func(c *gin.Context) {
+		clientIP := c.ClientIP()
+		if _, exists := blockedIPs[clientIP]; exists {
+			c.JSON(http.StatusForbidden, gin.H{
+				"http_code": "403",
+				"message":   "系統偵測到使用量過大，已先將該 IP 進行封鎖，如還需使用，請聯絡開發人員 https://t.me/pinyichuchu",
+				"status":    "error",
+			})
+			c.Abort()
+			return
+		}
+		c.Next()
+	})
+
+	limiter := tollbooth.NewLimiter(2, nil) // 1 秒最多 2 次請求
 	limiter.SetIPLookups([]string{"X-Forwarded-For", "X-Real-IP", "RemoteAddr"})
 	limiter.SetMessageContentType("application/json; charset=utf-8")
 	limiter.SetMessage(`{"http_code": "429", "message": "API 請求頻率過快，請稍後再試！", "status": "error"}`)
