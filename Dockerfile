@@ -21,6 +21,8 @@ COPY --from=builder /app/taiwan-calendar .
 
 COPY . .
 
+ENV GIN_MODE=release
+
 # 設定權限
 RUN chmod +x ./taiwan-calendar
 
