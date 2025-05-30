@@ -29,6 +29,26 @@ func LoadCalendar(filename string) ([]model.Calendar, error) {
 		return nil, fmt.Errorf("無法解析 JOSN 檔案，請聯繫開發人員")
 	}
 
+	type MonthInfo struct {
+		FullName     string
+		Abbreviation string
+	}
+
+	monthMap := map[string]MonthInfo{
+		"01": {FullName: "January", Abbreviation: "Jan"},
+		"02": {FullName: "February", Abbreviation: "Feb"},
+		"03": {FullName: "March", Abbreviation: "Mar"},
+		"04": {FullName: "April", Abbreviation: "Apr"},
+		"05": {FullName: "May", Abbreviation: "May"},
+		"06": {FullName: "June", Abbreviation: "Jun"},
+		"07": {FullName: "July", Abbreviation: "Jul"},
+		"08": {FullName: "August", Abbreviation: "Aug"},
+		"09": {FullName: "September", Abbreviation: "Sep"},
+		"10": {FullName: "October", Abbreviation: "Oct"},
+		"11": {FullName: "November", Abbreviation: "Nov"},
+		"12": {FullName: "December", Abbreviation: "Dec"},
+	}
+
 	var calendar []model.Calendar
 	for _, originalCalendar := range originalCalendar {
 		isHoliday := originalCalendar.IsHoliday == "2"
@@ -40,9 +60,11 @@ func LoadCalendar(filename string) ([]model.Calendar, error) {
 		dateFormat := parsedDate.Format("2006/01/02")
 		year := parsedDate.Format("2006")
 		yearInt, _ := strconv.Atoi(parsedDate.Format("2006"))
-		roc_yearStr := strconv.Itoa(yearInt - 1911) // 轉換為民國年並轉換為字串
+		roc_yearStr := strconv.Itoa(yearInt - 1911)
 		month := parsedDate.Format("01")
 		day := parsedDate.Format("02")
+
+		monthInfo := monthMap[month]
 
 		type WeekInfo struct {
 			FullName     string
@@ -62,19 +84,20 @@ func LoadCalendar(filename string) ([]model.Calendar, error) {
 		weekInfo := weekMap[originalCalendar.Week]
 
 		calendar = append(calendar, model.Calendar{
-			Date:         originalCalendar.Date,
-			DateFormat:   dateFormat,
-			Year:         year,
-			ROCYear:      roc_yearStr,
-			Month:        month,
-			Day:          day,
-			Week:         weekInfo.FullName,
-			Week_Abbr:    weekInfo.Abbreviation,
-			Week_Chinese: originalCalendar.Week,
-			IsHoliday:    isHoliday,
-			Caption:      originalCalendar.Remark,
+			Date:          originalCalendar.Date,
+			DateFormat:    dateFormat,
+			Year:          year,
+			ROCYear:       roc_yearStr,
+			Month:         month,
+			Month_En:      monthInfo.FullName,
+			Month_En_Abbr: monthInfo.Abbreviation,
+			Day:           day,
+			Week:          weekInfo.FullName,
+			Week_Abbr:     weekInfo.Abbreviation,
+			Week_Chinese:  originalCalendar.Week,
+			IsHoliday:     isHoliday,
+			Caption:       originalCalendar.Remark,
 		})
-
 	}
 
 	return calendar, nil
