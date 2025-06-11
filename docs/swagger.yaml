@@ -91,6 +91,7 @@ paths:
       - description: 月份 (01-12)
         in: path
         name: month
+        required: true
         type: string
       - description: 是否為假日
         in: query
@@ -129,10 +130,12 @@ paths:
       - description: 月份 (01-12)
         in: path
         name: month
+        required: true
         type: string
       - description: 日期 (01-31)
         in: path
         name: day
+        required: true
         type: string
       - description: 是否為假日
         in: query

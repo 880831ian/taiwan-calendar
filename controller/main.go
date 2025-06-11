@@ -36,8 +36,8 @@ func HealthCheck(c *gin.Context) {
 // @Summary 取得行事曆資料
 // @Tags taiwan-calendar
 // @Param year path string true "年份 (西元)"
-// @Param month path string false "月份 (01-12)"
-// @Param day path string false "日期 (01-31)"
+// @Param month path string true "月份 (01-12)"
+// @Param day path string true "日期 (01-31)"
 // @Param isHoliday query bool false "是否為假日"
 // @Success 200 {array} model.Calendar "回傳行事曆資料"
 // @Failure 400 {object} ErrorResponse "格式錯誤"

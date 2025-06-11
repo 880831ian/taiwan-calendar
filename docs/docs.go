@@ -108,7 +108,8 @@ const docTemplate = `{
                         "type": "string",
                         "description": "月份 (01-12)",
                         "name": "month",
-                        "in": "path"
+                        "in": "path",
+                        "required": true
                     },
                     {
                         "type": "boolean",
@@ -166,13 +167,15 @@ const docTemplate = `{
                         "type": "string",
                         "description": "月份 (01-12)",
                         "name": "month",
-                        "in": "path"
+                        "in": "path",
+                        "required": true
                     },
                     {
                         "type": "string",
                         "description": "日期 (01-31)",
                         "name": "day",
-                        "in": "path"
+                        "in": "path",
+                        "required": true
                     },
                     {
                         "type": "boolean",
