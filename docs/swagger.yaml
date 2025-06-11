@@ -1,0 +1,166 @@
+basePath: /taiwan-calendar/
+definitions:
+  controller.ErrorResponse:
+    properties:
+      http_code:
+        type: integer
+      message:
+        type: string
+      status:
+        example: error
+        type: string
+    type: object
+  model.Calendar:
+    properties:
+      caption:
+        type: string
+      date:
+        type: string
+      date_format:
+        type: string
+      day:
+        type: string
+      isHoliday:
+        type: boolean
+      month:
+        type: string
+      month_en:
+        type: string
+      month_en_abbr:
+        type: string
+      roc_year:
+        type: string
+      week:
+        type: string
+      week_abbr:
+        type: string
+      week_chinese:
+        type: string
+      year:
+        type: string
+    type: object
+host: 127.0.0.1:80
+info:
+  contact: {}
+  description: 台灣行事曆相關的 API 服務，可參考：https://github.com/880831ian/taiwan-calendar
+  title: 台灣行事曆 API
+  version: "1.0"
+paths:
+  /taiwan-calendar/{year}:
+    get:
+      parameters:
+      - description: 年份 (西元)
+        in: path
+        name: year
+        required: true
+        type: string
+      - description: 是否為假日
+        in: query
+        name: isHoliday
+        type: boolean
+      responses:
+        "200":
+          description: 回傳行事曆資料
+          schema:
+            items:
+              $ref: '#/definitions/model.Calendar'
+            type: array
+        "400":
+          description: 格式錯誤
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "404":
+          description: 範圍錯誤或是查無資料
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "429":
+          description: 頂到頻率限制
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 取得行事曆資料
+      tags:
+      - taiwan-calendar
+  /taiwan-calendar/{year}/{month}:
+    get:
+      parameters:
+      - description: 年份 (西元)
+        in: path
+        name: year
+        required: true
+        type: string
+      - description: 月份 (01-12)
+        in: path
+        name: month
+        type: string
+      - description: 是否為假日
+        in: query
+        name: isHoliday
+        type: boolean
+      responses:
+        "200":
+          description: 回傳行事曆資料
+          schema:
+            items:
+              $ref: '#/definitions/model.Calendar'
+            type: array
+        "400":
+          description: 格式錯誤
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "404":
+          description: 範圍錯誤或是查無資料
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "429":
+          description: 頂到頻率限制
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 取得行事曆資料
+      tags:
+      - taiwan-calendar
+  /taiwan-calendar/{year}/{month}/{day}:
+    get:
+      parameters:
+      - description: 年份 (西元)
+        in: path
+        name: year
+        required: true
+        type: string
+      - description: 月份 (01-12)
+        in: path
+        name: month
+        type: string
+      - description: 日期 (01-31)
+        in: path
+        name: day
+        type: string
+      - description: 是否為假日
+        in: query
+        name: isHoliday
+        type: boolean
+      responses:
+        "200":
+          description: 回傳行事曆資料
+          schema:
+            items:
+              $ref: '#/definitions/model.Calendar'
+            type: array
+        "400":
+          description: 格式錯誤
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "404":
+          description: 範圍錯誤或是查無資料
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "429":
+          description: 頂到頻率限制
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: 取得行事曆資料
+      tags:
+      - taiwan-calendar
+schemes:
+- http
+- https
+swagger: "2.0"

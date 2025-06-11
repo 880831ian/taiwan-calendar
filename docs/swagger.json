@@ -1,0 +1,252 @@
+{
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "台灣行事曆相關的 API 服務，可參考：https://github.com/880831ian/taiwan-calendar",
+        "title": "台灣行事曆 API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "127.0.0.1:80",
+    "basePath": "/taiwan-calendar/",
+    "paths": {
+        "/taiwan-calendar/{year}": {
+            "get": {
+                "tags": [
+                    "taiwan-calendar"
+                ],
+                "summary": "取得行事曆資料",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "年份 (西元)",
+                        "name": "year",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "是否為假日",
+                        "name": "isHoliday",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "回傳行事曆資料",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Calendar"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "格式錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "範圍錯誤或是查無資料",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "429": {
+                        "description": "頂到頻率限制",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/taiwan-calendar/{year}/{month}": {
+            "get": {
+                "tags": [
+                    "taiwan-calendar"
+                ],
+                "summary": "取得行事曆資料",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "年份 (西元)",
+                        "name": "year",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "月份 (01-12)",
+                        "name": "month",
+                        "in": "path"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "是否為假日",
+                        "name": "isHoliday",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "回傳行事曆資料",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Calendar"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "格式錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "範圍錯誤或是查無資料",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "429": {
+                        "description": "頂到頻率限制",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/taiwan-calendar/{year}/{month}/{day}": {
+            "get": {
+                "tags": [
+                    "taiwan-calendar"
+                ],
+                "summary": "取得行事曆資料",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "年份 (西元)",
+                        "name": "year",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "月份 (01-12)",
+                        "name": "month",
+                        "in": "path"
+                    },
+                    {
+                        "type": "string",
+                        "description": "日期 (01-31)",
+                        "name": "day",
+                        "in": "path"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "是否為假日",
+                        "name": "isHoliday",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "回傳行事曆資料",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Calendar"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "格式錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "範圍錯誤或是查無資料",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    },
+                    "429": {
+                        "description": "頂到頻率限制",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "controller.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "http_code": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "error"
+                }
+            }
+        },
+        "model.Calendar": {
+            "type": "object",
+            "properties": {
+                "caption": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string"
+                },
+                "date_format": {
+                    "type": "string"
+                },
+                "day": {
+                    "type": "string"
+                },
+                "isHoliday": {
+                    "type": "boolean"
+                },
+                "month": {
+                    "type": "string"
+                },
+                "month_en": {
+                    "type": "string"
+                },
+                "month_en_abbr": {
+                    "type": "string"
+                },
+                "roc_year": {
+                    "type": "string"
+                },
+                "week": {
+                    "type": "string"
+                },
+                "week_abbr": {
+                    "type": "string"
+                },
+                "week_chinese": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
