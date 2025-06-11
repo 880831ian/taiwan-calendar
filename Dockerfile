@@ -1,5 +1,5 @@
 # 基礎 image
-FROM golang:1.22-alpine as builder
+FROM golang:1.23-alpine as builder
 
 # 設定目錄
 WORKDIR /app
