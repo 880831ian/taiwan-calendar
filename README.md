@@ -18,7 +18,7 @@
 2. 本人免費提供 API，但是不保證服務穩定性，API：[https://api.pin-yi.me/taiwan-calendar](https://api.pin-yi.me/taiwan-calendar)。
 3. API 有每秒 2 次請求的限制，請大家不要把我的 API 打爆 QQ。
 4. 使用說明：
-   - `GET` `/taiwan-calendar/swagger/index.html`：查看 API 文件。
+   - `GET` `/taiwan-calendar/swagger/index.html/#`：查看 API 文件。
    - `GET` `/taiwan-calendar/{year}`：取得指定年份的行事曆資料。
    - `GET` `/taiwan-calendar/{year}/{month}`：取得指定年份+月份的行事曆資料。
    - `GET` `/taiwan-calendar/{year}/{month}/{day}`：取得指定年份+月份+日的行事曆資料。
@@ -26,7 +26,7 @@
    - `GET` `/taiwan-calendar/{year}/{month}/?isHoliday={true/false}`：取得指定年份+月份是否為假日的行事曆資料。
    - `GET` `/taiwan-calendar/{year}/{month}/{day}/?isHoliday={true/false}`：取得指定年份+月份+日是否為假日的行事曆資料。
 
-    其餘詳細說明請參考 [API 文件](https://api.pin-yi.me/taiwan-calendar/swagger/index.html)。
+    其餘詳細說明請參考 [API 文件](https://api.pin-yi.me/taiwan-calendar/swagger/index.html/#)。
 
 <br>
 
