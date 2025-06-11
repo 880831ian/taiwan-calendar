@@ -15,8 +15,21 @@ import (
 // ErrorResponse 定義錯誤回應的格式
 type ErrorResponse struct {
 	HttpCode int    `json:"http_code"`
-	Message  string `json:"message""`
+	Message  string `json:"message"`
 	Status   string `json:"status" example:"error"`
+}
+
+// HealthCheck doc
+// @Summary 健康檢查
+// @Description 檢查 API 服務是否正常運行
+// @Tags 系統
+// @Produce json
+// @Success 200 {object} map[string]string
+// @Router /taiwan-calendar/health [get]
+func HealthCheck(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"status": "ok",
+	})
 }
 
 // GetCalendar doc

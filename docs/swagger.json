@@ -10,9 +10,32 @@
         "contact": {},
         "version": "1.0"
     },
-    "host": "127.0.0.1:80",
-    "basePath": "/taiwan-calendar/",
+    "host": "127.0.0.1",
+    "basePath": "/",
     "paths": {
+        "/taiwan-calendar/health": {
+            "get": {
+                "description": "檢查 API 服務是否正常運行",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "系統"
+                ],
+                "summary": "健康檢查",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/taiwan-calendar/{year}": {
             "get": {
                 "tags": [

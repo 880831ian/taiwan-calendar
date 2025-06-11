@@ -1,4 +1,4 @@
-basePath: /taiwan-calendar/
+basePath: /
 definitions:
   controller.ErrorResponse:
     properties:
@@ -39,7 +39,7 @@ definitions:
       year:
         type: string
     type: object
-host: 127.0.0.1:80
+host: 127.0.0.1
 info:
   contact: {}
   description: 台灣行事曆相關的 API 服務，可參考：https://github.com/880831ian/taiwan-calendar
@@ -160,6 +160,21 @@ paths:
       summary: 取得行事曆資料
       tags:
       - taiwan-calendar
+  /taiwan-calendar/health:
+    get:
+      description: 檢查 API 服務是否正常運行
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 健康檢查
+      tags:
+      - 系統
 schemes:
 - http
 - https

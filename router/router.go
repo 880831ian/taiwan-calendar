@@ -8,6 +8,7 @@ import (
 
 	"github.com/didip/tollbooth"
 	"github.com/didip/tollbooth_gin"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -36,6 +37,14 @@ func loadBlockedIPs(filepath string) map[string]struct{} {
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
+	// 設定 CORS
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"*"}
+	config.AllowCredentials = true
+	config.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type", "Authorization"}
+	config.AllowMethods = []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}
+	r.Use(cors.New(config))
+
 	// IP 封鎖檢查
 	blockedIPs := loadBlockedIPs("blocked_ips.json")
 	r.Use(func(c *gin.Context) {
@@ -58,8 +67,13 @@ func SetupRouter() *gin.Engine {
 	limiter.SetMessageContentType("application/json; charset=utf-8")
 	limiter.SetMessage(`{"http_code": 429, "message": "API 請求頻率過快，請稍後再試！", "status": "error"}`)
 
+	// 健康檢查路由
+	r.GET("/taiwan-calendar/health", controller.HealthCheck)
+
 	// Swagger 文檔路由
 	r.GET("/taiwan-calendar/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	// API 路由
 	r.GET("/taiwan-calendar/:year/", tollbooth_gin.LimitHandler(limiter), controller.GetCalendar)
 	r.GET("/taiwan-calendar/:year/:month/", tollbooth_gin.LimitHandler(limiter), controller.GetCalendar)
 	r.GET("/taiwan-calendar/:year/:month/:day/", tollbooth_gin.LimitHandler(limiter), controller.GetCalendar)

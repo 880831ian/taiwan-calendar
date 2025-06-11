@@ -15,6 +15,29 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/taiwan-calendar/health": {
+            "get": {
+                "description": "檢查 API 服務是否正常運行",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "系統"
+                ],
+                "summary": "健康檢查",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/taiwan-calendar/{year}": {
             "get": {
                 "tags": [
@@ -256,8 +279,8 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "127.0.0.1:80",
-	BasePath:         "/taiwan-calendar/",
+	Host:             "127.0.0.1",
+	BasePath:         "/",
 	Schemes:          []string{"http", "https"},
 	Title:            "台灣行事曆 API",
 	Description:      "台灣行事曆相關的 API 服務，可參考：https://github.com/880831ian/taiwan-calendar",
