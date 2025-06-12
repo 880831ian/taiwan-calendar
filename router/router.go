@@ -71,7 +71,8 @@ func SetupRouter() *gin.Engine {
 	r.GET("/taiwan-calendar/health", controller.HealthCheck)
 
 	// Swagger 文檔路由
-	r.GET("/taiwan-calendar/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	swaggerHandler := ginSwagger.WrapHandler(swaggerFiles.Handler, ginSwagger.URL("/taiwan-calendar/swagger/doc.json"), ginSwagger.DefaultModelsExpandDepth(-1), ginSwagger.PersistAuthorization(true), ginSwagger.DocExpansion("list"))
+	r.GET("/taiwan-calendar/swagger/*any", swaggerHandler)
 
 	// API 路由
 	r.GET("/taiwan-calendar/:year/", tollbooth_gin.LimitHandler(limiter), controller.GetCalendar)
