@@ -75,6 +75,7 @@ func SetupRouter() *gin.Engine {
 	r.GET("/taiwan-calendar/swagger/*any", swaggerHandler)
 
 	// API 路由
+	r.GET("/taiwan-calendar/supported-years", tollbooth_gin.LimitHandler(limiter), controller.GetSupportedYears)
 	r.GET("/taiwan-calendar/:year/", tollbooth_gin.LimitHandler(limiter), controller.GetCalendar)
 	r.GET("/taiwan-calendar/:year/:month/", tollbooth_gin.LimitHandler(limiter), controller.GetCalendar)
 	r.GET("/taiwan-calendar/:year/:month/:day/", tollbooth_gin.LimitHandler(limiter), controller.GetCalendar)

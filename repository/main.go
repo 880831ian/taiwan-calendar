@@ -5,11 +5,46 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"sort"
 	"strconv"
+	"strings"
 	"time"
 
 	"taiwan-calendar/model"
 )
+
+func GetSupportedYears() ([]string, error) {
+	dataDir := "data"
+
+	// 讀取 data 資料夾中的所有檔案
+	files, err := os.ReadDir(dataDir)
+	if err != nil {
+		return nil, fmt.Errorf("無法讀取 data 資料夾: %v", err)
+	}
+
+	var years []string
+	for _, file := range files {
+		if !file.IsDir() && strings.HasSuffix(file.Name(), ".json") {
+			// 從檔案名稱中提取年份（檔案名稱格式為 YYYY.json）
+			fileName := file.Name()
+			yearStr := strings.TrimSuffix(fileName, ".json")
+
+			// 驗證是否為有效的年份
+			if year, err := strconv.Atoi(yearStr); err == nil && year >= 1912 && year <= time.Now().Year() {
+				years = append(years, yearStr)
+			}
+		}
+	}
+
+	// 排序年份
+	sort.Strings(years)
+
+	if len(years) == 0 {
+		return nil, fmt.Errorf("在 data 資料夾中找不到任何有效的年份檔案")
+	}
+
+	return years, nil
+}
 
 func LoadCalendar(filename string) ([]model.Calendar, error) {
 	file, err := os.Open(filename)

@@ -32,6 +32,28 @@ func HealthCheck(c *gin.Context) {
 	})
 }
 
+// GetSupportedYears doc
+// @Summary 取得支援的年份清單
+// @Description 取得目前 API 支援的所有年份資料
+// @Tags taiwan-calendar
+// @Produce json
+// @Success 200 {array} string "支援的年份清單"
+// @Failure 500 {object} ErrorResponse "伺服器內部錯誤"
+// @Router /taiwan-calendar/supported-years [get]
+func GetSupportedYears(c *gin.Context) {
+	years, err := repository.GetSupportedYears()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"http_code": 500,
+			"message":   "無法取得支援的年份",
+			"status":    "error",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, years)
+}
+
 // GetCalendar doc
 // @Summary 取得行事曆資料
 // @Tags taiwan-calendar

@@ -38,6 +38,35 @@ const docTemplate = `{
                 }
             }
         },
+        "/taiwan-calendar/supported-years": {
+            "get": {
+                "description": "取得目前 API 支援的所有年份資料",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "taiwan-calendar"
+                ],
+                "summary": "取得支援的年份清單",
+                "responses": {
+                    "200": {
+                        "description": "支援的年份清單",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "伺服器內部錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/taiwan-calendar/{year}": {
             "get": {
                 "tags": [

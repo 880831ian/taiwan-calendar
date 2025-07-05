@@ -19,6 +19,8 @@
 3. API 有每秒 2 次請求的限制，請大家不要把我的 API 打爆 QQ。
 4. 使用說明：
    - `GET` `/taiwan-calendar/swagger/index.html/#`：查看 API 文件。
+   - `GET` `/taiwan-calendar/health`：檢查 API 是否正常運作。
+   - `GET` `/taiwan-calendar/supported-years`：取得支援的年份列表。
    - `GET` `/taiwan-calendar/{year}`：取得指定年份的行事曆資料。
    - `GET` `/taiwan-calendar/{year}/{month}`：取得指定年份+月份的行事曆資料。
    - `GET` `/taiwan-calendar/{year}/{month}/{day}`：取得指定年份+月份+日的行事曆資料。
