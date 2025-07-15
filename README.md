@@ -28,7 +28,7 @@
    - `GET` `/taiwan-calendar/{year}/{month}/?isHoliday={true/false}`：取得指定年份+月份是否為假日的行事曆資料。
    - `GET` `/taiwan-calendar/{year}/{month}/{day}/?isHoliday={true/false}`：取得指定年份+月份+日是否為假日的行事曆資料。
 
-    其餘詳細說明請參考 [API 文件](https://api.pin-yi.me/taiwan-calendar/swagger/index.html/#)。
+    其餘詳細說明請參考 [API 文件](https://api.pin-yi.me/taiwan-calendar/swagger/index.html)。
 
 <br>
 
